@@ -55,6 +55,7 @@ kill $SERVER_PID
 
 ## 絶対禁止
 - `.env` の作成・変更
+- 本書（CLAUDE.md）の編集・上書き・再生成（アプリ固有の仕様・指示の追記も禁止。書くなら docs/spec.md へ）
 - `php artisan migrate:fresh` の本番実行。本番環境への直接操作全般
 - DBのENUM型（string + アプリ側バリデーションで代替）
 - SQLite（ローカル）とPostgreSQL（本番）で挙動が割れる書き方（DB固有関数・生SQL依存）
