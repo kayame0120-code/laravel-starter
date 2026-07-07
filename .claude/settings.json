@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(php -v)",
+      "Bash(php artisan *)",
+      "Bash(composer install*)",
+      "Bash(composer require *)",
+      "Bash(composer update *)",
+      "Bash(composer show *)",
+      "Bash(git status*)",
+      "Bash(git log*)",
+      "Bash(git diff*)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git switch *)",
+      "Bash(git check-ignore *)",
+      "Bash(curl -s http://127.0.0.1:*)",
+      "Bash(echo *)",
+      "Bash(kill *)",
+      "Bash(mkdir -p docs)",
+      "Read(//tmp/**)"
+    ],
+    "deny": [
+      "Bash(git push*)",
+      "Bash(fly *)",
+      "Bash(flyctl *)",
+      "Bash(php artisan migrate:fresh*)",
+      "Edit(.env)",
+      "Edit(.env.*)",
+      "Write(.env)",
+      "Write(.env.*)"
+    ]
+  }
+}
