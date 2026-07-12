@@ -2,13 +2,13 @@
 # 使い方: app名を新アプリ名に書き換えてから fly deploy する
 # （READMEの初回セットアップ手順を参照）
 
-app = 'CHANGE-ME'
+app = 'CHANGE-ME-APP-NAME'
 primary_region = 'nrt'
 console_command = 'php /var/www/html/artisan tinker'
 
 [build]
   [build.args]
-    NODE_VERSION = '18'
+    NODE_VERSION = '20'
     PHP_VERSION = '8.2'
 
 [env]
