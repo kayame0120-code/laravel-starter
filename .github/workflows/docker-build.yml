@@ -1,0 +1,31 @@
+name: Docker Build Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # イメージのビルドが通ることを検証する。
+      # Dockerfile内の `test -f public/build/manifest.json` により、
+      # Viteビルドが失敗した場合はここで確実にジョブが落ちる
+      # （＝CSSが当たらない状態のままデプロイされるのを防ぐ）
+      - name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          build-args: |
+            NODE_VERSION=20
+            PHP_VERSION=8.2
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
