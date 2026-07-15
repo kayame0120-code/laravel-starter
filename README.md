@@ -45,19 +45,19 @@ fly postgres attach <アプリ名>-db --app <アプリ名>
 # 3. APP_KEYをsecretに設定
 fly secrets set APP_KEY=$(php artisan key:generate --show) --app <アプリ名>
 
-# 4. デプロイ
+# 4. デプロイ（release_command がマイグレーションを自動実行する）
 fly deploy
 
-# 5. マイグレーション（手動実行が規約。release_commandは使わない）
-fly ssh console --app <アプリ名> -C "php artisan migrate --force"
+# 5. マイグレーション実行の確認
+fly logs --app <アプリ名> | grep -i migrate
+# → 「Nothing to migrate.」または実行済みマイグレーション名が出れば成功
 ```
 
 ## 2回目以降のデプロイ
 
 ```bash
 fly deploy
-# マイグレーションがある場合のみ:
-fly ssh console --app <アプリ名> -C "php artisan migrate --force"
+# マイグレーションは release_command が自動実行する（手動実行は不要）
 ```
 
 ## 運用規約（要点。詳細は CLAUDE.md）
@@ -65,4 +65,4 @@ fly ssh console --app <アプリ名> -C "php artisan migrate --force"
 - `migrate:fresh` の本番実行は禁止
 - DBのENUM型は禁止（string + アプリ側バリデーション）
 - SQLite/PostgreSQL で挙動が割れる書き方（DB固有関数・生SQL依存）は禁止
-- 本番コマンド（fly deploy / migrate / seed）は人間が実行する
+- 本番コマンド（fly deploy / seed）は人間が実行する。マイグレーションは release_command 経由で deploy 内で自動実行される
